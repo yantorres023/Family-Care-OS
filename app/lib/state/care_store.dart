@@ -122,6 +122,9 @@ class CareStore extends ChangeNotifier {
   // --- Read model ---------------------------------------------------------
 
   bool get isLoaded => _loaded;
+
+  /// Item ids from tapped reminders ('' for the daily digest).
+  Stream<String> get notificationOpens => _notifications.opened;
   Object? get loadError => _loadError;
   Circle? get circle => _circle;
   bool get isSetUp => _circle != null && me != null;

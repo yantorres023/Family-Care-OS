@@ -7,6 +7,7 @@ const upcomingWindowDays = 7;
 /// The Today screen, computed from raw items. Pure, so it is unit-tested.
 class TodayView {
   TodayView._({
+    required this.date,
     required this.overdue,
     required this.today,
     required this.upcoming,
@@ -58,6 +59,7 @@ class TodayView {
     ].where((i) => i.assigneeId == null).toList();
 
     return TodayView._(
+      date: date,
       overdue: overdue,
       today: today,
       upcoming: upcoming,
@@ -67,6 +69,8 @@ class TodayView {
     );
   }
 
+  /// The day this view was built for.
+  final CivilDate date;
   final List<CareItem> overdue;
   final List<CareItem> today;
   final List<CareItem> upcoming;
