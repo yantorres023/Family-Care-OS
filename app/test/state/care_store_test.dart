@@ -105,7 +105,7 @@ void main() {
         ),
       );
       expect(item.location, 'Clinic');
-      expect(s.timeline.first.summary, 'Ana asked Luis to do "Dr. visit"');
+      expect(s.timeline.first.summary, 'Ana added "Dr. visit" for Luis');
       expect(h.analytics.count(AnalyticsEvent.eventCreated), 1);
       expect(h.analytics.count(AnalyticsEvent.taskAssigned), 1);
     });

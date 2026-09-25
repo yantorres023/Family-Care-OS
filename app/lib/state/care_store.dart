@@ -502,28 +502,26 @@ class CareStore extends ChangeNotifier {
       throw const PermissionDenied('Helpers can only take tasks themselves.');
     }
     final item = _newItem(draft, createdById: a.id, at: now);
+    final assignee = memberById(item.assigneeId);
+    // One timeline entry per creation, mentioning the owner if there is one.
+    final String summary;
+    if (assignee == null) {
+      summary = '${a.name} added "${item.title}"';
+    } else if (assignee.id == a.id) {
+      summary = '${a.name} added "${item.title}" and is taking it';
+    } else {
+      summary = '${a.name} added "${item.title}" for ${assignee.name}';
+    }
     final changes = ChangeSet()
       ..items.add(item)
       ..activity.add(
         _event(
           ActivityType.itemCreated,
-          '${a.name} added "${item.title}"',
+          summary,
           itemId: item.id,
+          memberId: assignee?.id,
         ),
       );
-    final assignee = memberById(item.assigneeId);
-    if (assignee != null) {
-      changes.activity.add(
-        _event(
-          ActivityType.itemAssigned,
-          assignee.id == a.id
-              ? '${a.name} is taking "${item.title}"'
-              : '${a.name} asked ${assignee.name} to do "${item.title}"',
-          itemId: item.id,
-          memberId: assignee.id,
-        ),
-      );
-    }
     await _commit(changes);
     _analytics.track(
       item.kind == ItemKind.appointment

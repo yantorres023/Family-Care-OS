@@ -75,9 +75,9 @@ void main() {
     expect(h.store.isSetUp, isTrue);
     expect(h.store.activeMembers.map((m) => m.name), ['Ana', 'Luis']);
     expect(find.text('For Mom'), findsOneWidget);
-    // Starter tasks have no date → they live on the Tasks tab.
-    await tester.tap(find.text('Tasks'));
-    await tester.pumpAndSettle();
+    // Starter tasks have no date; Today still shows them so the first
+    // screen after setup is never empty.
+    expect(find.text('No date yet (2)'), findsOneWidget);
     expect(find.text('Weekly groceries'), findsOneWidget);
     expect(find.text('Pay utility bills'), findsOneWidget);
   });

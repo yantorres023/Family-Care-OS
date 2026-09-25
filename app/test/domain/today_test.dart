@@ -21,6 +21,7 @@ void main() {
     expect(view.today.map((i) => i.id), ['today']);
     expect(view.upcoming.map((i) => i.id), ['soon', 'edge']);
     expect(view.later.map((i) => i.id), ['far', 'nodate']);
+    expect(view.undated.map((i) => i.id), ['nodate']);
   });
 
   test('deleted items are ignored; done items only count if done today', () {

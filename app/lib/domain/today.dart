@@ -77,6 +77,9 @@ class TodayView {
 
   /// No date, or beyond the upcoming window.
   final List<CareItem> later;
+
+  /// Open items with no date at all (a subset of [later]).
+  List<CareItem> get undated => later.where((i) => i.dueDate == null).toList();
   final List<CareItem> doneToday;
 
   /// Open items due within the window (or overdue) that nobody has taken.

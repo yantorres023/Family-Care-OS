@@ -14,12 +14,15 @@ import 'item_editor_screen.dart';
 class TodayScreen extends StatelessWidget {
   const TodayScreen({super.key});
 
+  static const _maxUndated = 5;
+
   @override
   Widget build(BuildContext context) {
     final store = StoreScope.of(context);
     final view = store.todayView;
     final name = store.circle!.careRecipientName;
     final dateLabel = DateFormat.MMMMEEEEd().format(store.now);
+    final undated = view.undated;
 
     return Scaffold(
       appBar: AppBar(
@@ -49,7 +52,7 @@ class TodayScreen extends StatelessWidget {
           const _HandoffCard(),
           if (view.needsSomeone.isNotEmpty)
             _NeedsSomeoneBanner(count: view.needsSomeone.length),
-          if (view.isEmpty)
+          if (view.isEmpty && undated.isEmpty)
             EmptyState(
               icon: Icons.wb_sunny_outlined,
               title: 'Nothing planned this week',
@@ -85,6 +88,21 @@ class TodayScreen extends StatelessWidget {
             SectionHeader('Coming up', count: view.upcoming.length),
             for (final i in view.upcoming) ItemTile(item: i),
           ],
+          if (undated.isNotEmpty) ...[
+            SectionHeader(
+              'No date yet',
+              count: undated.length,
+              icon: Icons.event_busy_outlined,
+            ),
+            for (final i in undated.take(_maxUndated)) ItemTile(item: i),
+            if (undated.length > _maxUndated)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  '…and ${undated.length - _maxUndated} more on the Tasks tab.',
+                ),
+              ),
+          ],
           if (view.doneToday.isNotEmpty) ...[
             SectionHeader(
               'Done today',
@@ -93,7 +111,7 @@ class TodayScreen extends StatelessWidget {
             ),
             for (final i in view.doneToday) ItemTile(item: i, showDate: false),
           ],
-          if (!view.isEmpty)
+          if (!view.isEmpty || undated.isNotEmpty)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
               child: OutlinedButton.icon(
