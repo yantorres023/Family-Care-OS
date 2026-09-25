@@ -40,7 +40,7 @@ Primary coordinator (often an adult daughter, 40–64, working) for an aging par
 - Business: MONETIZATION, DISTRIBUTION.
 - App (`/app`, Flutter 3.47.5): onboarding, Today, Tasks, Timeline, Family, member management & roles, item editor/detail, recurrence, appointments, handoff notes with drafts, shared-device switcher, share-to-chat, local reminders, settings, export, delete-all, on-device analytics. ~6.2k LOC app, ~2.2k LOC tests.
 - Quality: `dart format` clean, `flutter analyze --fatal-infos` clean, **120 tests passing** locally.
-- CI: GitHub Actions — checks + Android APK/AAB + iOS no-codesign; **all green on run 1**, run 2 checks green (builds verified via GitHub API).
+- CI: GitHub Actions — checks + Android APK/AAB + iOS no-codesign; **all 3 jobs green on runs 1–3**; run 3 = final head (verified via GitHub API).
 - Store prep: release/STORE_LISTING, android/PLAY_STORE, ios/APP_STORE, QA_CHECKLIST, screenshots.
 - Legal drafts: legal/PRIVACY_POLICY, legal/TERMS (marked for legal review).
 - Landing page: landing/index.html.

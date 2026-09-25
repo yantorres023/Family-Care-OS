@@ -54,10 +54,10 @@ No diagnosis, symptoms, medication or dosage, vitals, triage or health claims. A
 - Not automatable here (see release/QA_CHECKLIST.md): real notification delivery, share sheet, OS backup.
 
 ## Android
-The container couldn't build Android: dl.google.com is blocked, so the Android SDK couldn't be installed. **CI builds it on GitHub Actions: `flutter build apk --release` and `flutter build appbundle --release` succeeded** (run [36146541177](https://github.com/yantorres023/Family-Care-OS/actions/runs/36146541177), artifacts uploaded). These builds are **debug-signed**; release signing is a human action. Only two permissions: `POST_NOTIFICATIONS` and `RECEIVE_BOOT_COMPLETED`. There is no exact-alarm permission.
+The container couldn't build Android: dl.google.com is blocked, so the Android SDK couldn't be installed. **CI builds it on GitHub Actions: `flutter build apk --release` and `flutter build appbundle --release` succeeded** on every pushed commit, most recently the final head `c6bdf79` (run [36148486735](https://github.com/yantorres023/Family-Care-OS/actions/runs/36148486735), artifacts uploaded). These builds are **debug-signed**; release signing is a human action. Only two permissions: `POST_NOTIFICATIONS` and `RECEIVE_BOOT_COMPLETED`. There is no exact-alarm permission.
 
 ## iOS
-The macOS CI job ran `flutter test` and **`flutter build ios --release --no-codesign`, and both succeeded**. The unsigned Runner.app is uploaded as an artifact. Signing and provisioning need an Apple Developer account.
+The macOS CI job ran `flutter test` and **`flutter build ios --release --no-codesign`, and both succeeded** (final head: run [36148486735](https://github.com/yantorres023/Family-Care-OS/actions/runs/36148486735)). The unsigned Runner.app is uploaded as an artifact. Signing and provisioning need an Apple Developer account.
 
 ## Monetization
 Free during validation. The next step is a fake-door price test ($19/$29/$39 per year, one payer per family) at the point where users ask for sync, alongside a B2B2C track (employers, UK carers' organisations and councils). Ads and data sale are rejected. Details: docs/business/MONETIZATION.md.
